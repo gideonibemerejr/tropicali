@@ -1,0 +1,66 @@
+@import "reset";
+@import "typography";
+
+
+/************************************************************************************************
+VARIABLES & MIXINS
+************************************************************************************************/
+
+// Colors
+$primary-color: #f70201;
+
+// Typography
+$body-font: "Jost";
+$body-size: 24px;
+
+
+$mq-large: 800px;
+$mq-medium: 600px;
+
+
+// Mixins
+@mixin drop-shadow($color) {
+    box-shadow: 0 0 10px $color;
+}
+
+@mixin mq ($width) {
+    @media (max-width: $width) {
+        @content;
+    }
+}
+
+@mixin vertically-middle () {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+/************************************************************************************************
+CUSTOM STYLES
+************************************************************************************************/
+
+
+// General Styles 
+body {
+    background-color: $primary-color;
+    color: #ffffff;
+    font-family: $body-font;
+    font-size: $body-size;
+    line-height: 1.5;
+
+    height: 100vh;
+    @include vertically-middle();
+}
+
+section {
+    width: 500px;
+    @include mq($mq-medium) {
+        width: 350px;
+        font-size: 16px;
+
+    }
+    p {
+        margin: 24px 0 0 0;
+    }
+}
