@@ -10,6 +10,9 @@ const browserSync = require('browser-sync').create()
 
 const imagemin = require('gulp-imagemin')
 
+const ghpages = require('gh-pages')
+
+
 
 // File paths to maintain DRY code. Need to figure out if the destination is the same -- currently paths.dest
 const paths = {
@@ -100,7 +103,7 @@ function watchImg() {
 const compile = gulp.parallel(markup, style, fonts, img)
 
 /************************************************
-Local Server + Default Construct
+Local Server + Default Constructs + Single Tasks
 *************************************************/
 
 //start browserSync -- will not run independently i.e. gulp startServer
@@ -119,5 +122,11 @@ const watch = gulp.parallel(watchMarkup, watchStyle, watchFonts, watchImg)
 
 // runs all our code as default gulp task
 const defaultTasks = gulp.parallel(serve, watch)
+
+// deploys to github
+gulp.task("deploy", function (cb) {
+  ghpages.publish(paths.dest)
+  cb();
+})
 
 exports.default = defaultTasks
