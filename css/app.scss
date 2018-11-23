@@ -7,7 +7,7 @@ VARIABLES & MIXINS
 ************************************************************************************************/
 
 // Colors
-$primary-color: #f70201;
+$primary-color: #ca774a;
 
 // Typography
 $body-font: "Jost";
@@ -19,10 +19,6 @@ $mq-medium: 600px;
 
 
 // Mixins
-@mixin drop-shadow($color) {
-    box-shadow: 0 0 10px $color;
-}
-
 @mixin mq ($width) {
     @media (max-width: $width) {
         @content;
