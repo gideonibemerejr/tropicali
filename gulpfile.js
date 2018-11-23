@@ -2,14 +2,17 @@ const gulp = require('gulp')
 const { parallel } = require('gulp')
 const { series } = require('gulp')
 
-const sass = require('gulp-sass')
+//css
 const cleanCss = require('gulp-clean-css')
+const postcss = require('gulp-postcss')
 const sourcemaps = require('gulp-sourcemaps')
+const concat = require('gulp-concat')
 
+//for browser refresh
 const browserSync = require('browser-sync').create()
-
+// for images
 const imagemin = require('gulp-imagemin')
-
+//for github
 const ghpages = require('gh-pages')
 
 
@@ -17,7 +20,7 @@ const ghpages = require('gh-pages')
 // File paths to maintain DRY code. Need to figure out if the destination is the same -- currently paths.dest
 const paths = {
   styles: {
-      src: "src/css/app.scss",
+      src:'src/css/app.css'
   },
   html: {
     src: "src/*.html"
@@ -37,23 +40,31 @@ const paths = {
  COMPILE FILES HTML, CSS, JS, IMG, FONTS
 ********************************************************/
 
-// This function compiles + Minifies SASS to CSS
 function style() {
-  // Grabs the app.scss file
-  return gulp.src(paths.styles.src)
+  // Grabs the app.css file
+  return gulp.src([
+    "src/css/reset.css",
+    "src/css/typography.css",
+    'src/css/app.css'
+  ])
   // Intializes sourcemaps for css line information in devtools
-  .pipe(sourcemaps.init())
-    //passes app.scss through to sass
-    .pipe(sass())
+    .pipe(sourcemaps.init())
     .pipe(
-      //minifies our css, adds compatibility for ie8+ 
+      postcss([
+        require('autoprefixer'),
+        require('postcss-preset-env')
+      ])
+    )
+    .pipe(concat("app.css"))
+    .pipe(
+        //minifies our css, adds compatibility for ie8+ 
       cleanCss({
         compatibility: 'ie8'
       })
     )
-    //writes our css line information for devtools
+      //writes our css line information for devtools
     .pipe(sourcemaps.write())
-    // compiles our app.scss changes to dist/app.css 
+    // compiles our app.css changes to dist/app.css 
     .pipe(gulp.dest(paths.dest))
     .pipe(browserSync.stream())
 }
@@ -81,7 +92,7 @@ function img() {
 WATCH FILES & RUN COMPILERS AUTOMATICALLY
 *************************************************/
 
-// Watch src/app.scss and run sass compiler if changes any occur
+// Watch src/app.css and run sass compiler if changes any occur
 function watchStyle() {  
   gulp.watch(paths.styles.src, style)
 }
