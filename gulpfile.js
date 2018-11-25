@@ -20,7 +20,7 @@ const ghpages = require('gh-pages')
 // File paths to maintain DRY code. Need to figure out if the destination is the same -- currently paths.dest
 const paths = {
   styles: {
-      src:'src/css/app.css'
+      src:'src/css/*.css'
   },
   html: {
     src: "src/*.html"
@@ -52,7 +52,10 @@ function style() {
     .pipe(
       postcss([
         require('autoprefixer'),
-        require('postcss-preset-env')
+        require('postcss-preset-env')({
+          stage: 1,
+          browswer: ["IE 11", "last 2 versions"]
+        })
       ])
     )
     .pipe(concat("app.css"))

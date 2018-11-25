@@ -1,4 +1,111 @@
+@custom-media --mq-medium (max-width: 800px);
+@custom-media --mq-small (max-width: 550px);
+:root {
+    --primary-color: #f70201;
+    --text-on-light: #151620;
+    --text-on-dark: #ffffff;
+    --background-color: #ffffff;
+    
+
+    --main-spacing: 64px;
+    --gap-spacing: 40px;
+    --header-height: 80px;
+    --hero-spacing: 240px;
+    --centered-width: 50%;
+    
+}
+
+@media (--mq-medium) {
+    :root {
+        --main-spacing: 40px;
+        --gap-spacing: 32px;
+        --hero-spacing: 120px;
+        --centered-width: 75%;
+    }
+}
+@media (--mq-small) {
+    :root {
+        --main-spacing: 32px;
+        --hero-spacign: 80px;
+    }
+}
+
 body {
-    font-family: 'Jost';
-    src: url(fonts/jost-book.woff2), url(fonts/jost-book.woff);
+    background-color: var(--background-color);
+}
+
+header {
+    background-color: var(--primary-color);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    height: var(--header-height);
+    padding: 0 var(--main-spacing) 0 var(--main-spacing);
+}
+
+section.grid, section.centered {
+    margin: var(--main-spacing);
+}
+
+section.hero {
+    padding: var(--hero-spacing) var(--main-spacing) var(--hero-spacing) var(--main-spacing);
+    background-color: #eee;
+    color: var(--text-on-dark);
+    text-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    text-align: center;
+
+    background-image: image-set("img/rainbow.jpg" 1x, "img/rainbow@2x.jpg" 2x);
+    background-size: cover;
+    background-position: center;
+}
+
+section.hero.menu {
+    background-image: image-set("img/green-wall.jpg" 1x, "img/green-wall@2x.jpg" 2x);
+}
+section.hero h2 {
+    margin-bottom: 10px;
+}
+
+section.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: var(--gap-spacing);
+    align-items: center;
+}
+
+section.grid p {
+    margin: 20px 0 20px 0;
+}
+
+.button {
+    display: inline-block;
+    color: var(--text-on-dark);
+    border: 1px solid var(--text-on-dark);
+    padding: 15px 30px 15px 30px;
+}
+
+.button-full {
+    background-color: var(--primary-color);
+}
+
+section.centered {
+    text-align: center;
+    width: var(--centered-width);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (--mq-small) {
+    section.grid {
+        grid-template-columns: 1fr;
+    }
+    header img {
+        width: 160px;
+    }
+
+    .button {
+        padding: 8px 15px 8px 15px;
+    }
 }
