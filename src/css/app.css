@@ -79,6 +79,10 @@ section.grid p {
     margin: 20px 0 20px 0;
 }
 
+section.grid img {
+    width: 100%;
+}
+
 .button {
     display: inline-block;
     color: var(--text-on-dark);
